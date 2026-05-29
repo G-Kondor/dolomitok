@@ -867,11 +867,9 @@
       border-radius: var(--r-lg);
       box-shadow: var(--shadow-s);
       overflow: hidden;
-      cursor: pointer;
       transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, border-color .2s;
       border: 2.5px solid transparent;
       display: block;
-      user-select: none;
     }
     .acc-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-m); }
     .acc-card input[type="radio"] {
@@ -911,32 +909,42 @@
       transition: color .2s;
     }
     .acc-link:hover { color: var(--sunset); }
-    .acc-tick {
+    .acc-heart {
       position: absolute; top: 12px; right: 12px;
-      width: 32px; height: 32px;
-      background: var(--sage-deep); color: white;
+      width: 42px; height: 42px;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1.5px solid rgba(255,255,255,.7);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 15px; font-weight: 700;
-      opacity: 0; transform: scale(.4);
-      transition: opacity .25s, transform .3s cubic-bezier(.34,1.56,.64,1);
-      z-index: 2;
+      cursor: pointer; padding: 0;
+      box-shadow: 0 4px 14px rgba(44,38,32,.18);
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), background .2s;
+      z-index: 3;
     }
+    .acc-heart svg {
+      width: 22px; height: 22px;
+      fill: transparent;
+      stroke: var(--ink-light); stroke-width: 1.8;
+      transition: fill .3s, stroke .3s, transform .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .acc-heart:hover { transform: scale(1.1); background: white; }
+    .acc-heart:hover svg { stroke: var(--sunset); }
     .acc-card:has(input:checked) {
-      border-color: var(--sage-deep);
-      box-shadow: 0 0 0 4px rgba(90,122,76,.15), var(--shadow-m);
+      border-color: var(--sunset);
+      box-shadow: 0 0 0 4px rgba(232,149,109,.18), var(--shadow-m);
     }
-    .acc-card:has(input:checked) .acc-tick {
-      opacity: 1; transform: scale(1);
+    .acc-card:has(input:checked) .acc-heart svg {
+      fill: var(--sunset); stroke: var(--sunset);
+      animation: heartPop .45s cubic-bezier(.34,1.56,.64,1);
     }
-    .acc-hint {
-      font-size: 11px; font-family: 'Inter', sans-serif;
-      color: var(--ink-muted); letter-spacing: .4px;
-      display: block; margin-top: 4px;
-      transition: color .2s;
+    @keyframes heartPop {
+      0%   { transform: scale(.7); }
+      55%  { transform: scale(1.35); }
+      100% { transform: scale(1); }
     }
-    .acc-card:hover .acc-hint { color: var(--sky-deep); }
-    .acc-card:has(input:checked) .acc-hint { display: none; }
+    .acc-card .acc-img { cursor: pointer; text-decoration: none; }
 
     /* picks summary */
     .acc-picks { margin-top: 56px; text-align: center; }
@@ -1364,49 +1372,55 @@
       <div class="acc-group-title">🏔️ Dolomiti</div>
       <div class="acc-cards">
 
-        <div class="acc-card" onclick="accSelect(this)"
-             data-url="https://www.booking.com/Share-3b0EYP" data-name="Hotel Ciasa Lorenzi">
+        <div class="acc-card" data-url="https://www.booking.com/Share-rijQL0" data-name="Hotel Ciasa Lorenzi">
           <input type="radio" name="acc-dolomiti" id="acc-d1" value="Hotel Ciasa Lorenzi">
-          <div class="acc-img">
+          <a class="acc-img" href="https://www.booking.com/Share-rijQL0" target="_blank" rel="noopener" aria-label="Open Hotel Ciasa Lorenzi on Booking.com">
             <span class="acc-img-fb">🏔️</span>
             <img src="images/acc_1.jpg" alt="Hotel Ciasa Lorenzi" loading="lazy"
                  onerror="this.style.display='none'">
-          </div>
+          </a>
           <div class="acc-info">
             <span class="acc-name">Hotel Ciasa Lorenzi</span>
-            <span class="acc-hint">click to view &amp; select</span>
           </div>
-          <div class="acc-tick">✓</div>
+          <button type="button" class="acc-heart" onclick="accLike(this)" aria-label="Pick Hotel Ciasa Lorenzi">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 20.4s-7.2-4.4-9.6-9C.7 8.1 3 4.3 6.8 4.3c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.4 7.1-2.4 4.6-9.6 9-9.6 9z"/>
+            </svg>
+          </button>
         </div>
 
-        <div class="acc-card" onclick="accSelect(this)"
-             data-url="https://www.booking.com/Share-yJYA1mR" data-name="Hotel Menardi">
+        <div class="acc-card" data-url="https://www.booking.com/Share-YUKjEXN" data-name="Hotel Menardi">
           <input type="radio" name="acc-dolomiti" id="acc-d2" value="Hotel Menardi">
-          <div class="acc-img">
+          <a class="acc-img" href="https://www.booking.com/Share-YUKjEXN" target="_blank" rel="noopener" aria-label="Open Hotel Menardi on Booking.com">
             <span class="acc-img-fb">🏔️</span>
             <img src="images/acc_2.webp" alt="Hotel Menardi" loading="lazy"
                  onerror="this.style.display='none'">
-          </div>
+          </a>
           <div class="acc-info">
             <span class="acc-name">Hotel Menardi</span>
-            <span class="acc-hint">click to view &amp; select</span>
           </div>
-          <div class="acc-tick">✓</div>
+          <button type="button" class="acc-heart" onclick="accLike(this)" aria-label="Pick Hotel Menardi">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 20.4s-7.2-4.4-9.6-9C.7 8.1 3 4.3 6.8 4.3c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.4 7.1-2.4 4.6-9.6 9-9.6 9z"/>
+            </svg>
+          </button>
         </div>
 
-        <div class="acc-card" onclick="accSelect(this)"
-             data-url="https://www.booking.com/Share-KJeXQXt" data-name="Royal Hotel Cortina">
+        <div class="acc-card" data-url="https://www.booking.com/Share-1XVkVbb" data-name="Royal Hotel Cortina">
           <input type="radio" name="acc-dolomiti" id="acc-d3" value="Royal Hotel Cortina">
-          <div class="acc-img">
+          <a class="acc-img" href="https://www.booking.com/Share-1XVkVbb" target="_blank" rel="noopener" aria-label="Open Royal Hotel Cortina on Booking.com">
             <span class="acc-img-fb">🏔️</span>
             <img src="images/acc_3.webp" alt="Royal Hotel Cortina" loading="lazy"
                  onerror="this.style.display='none'">
-          </div>
+          </a>
           <div class="acc-info">
             <span class="acc-name">Royal Hotel Cortina</span>
-            <span class="acc-hint">click to view &amp; select</span>
           </div>
-          <div class="acc-tick">✓</div>
+          <button type="button" class="acc-heart" onclick="accLike(this)" aria-label="Pick Royal Hotel Cortina">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 20.4s-7.2-4.4-9.6-9C.7 8.1 3 4.3 6.8 4.3c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.4 7.1-2.4 4.6-9.6 9-9.6 9z"/>
+            </svg>
+          </button>
         </div>
 
       </div>
@@ -1417,49 +1431,55 @@
       <div class="acc-group-title">🛶 Venice</div>
       <div class="acc-cards">
 
-        <div class="acc-card" onclick="accSelect(this)"
-             data-url="https://www.booking.com/Share-pQBCh1" data-name="B&amp;B Patatina">
+        <div class="acc-card" data-url="https://www.booking.com/Share-Fv2xxCi" data-name="B&amp;B Patatina">
           <input type="radio" name="acc-venice" id="acc-v1" value="B&B Patatina">
-          <div class="acc-img">
+          <a class="acc-img" href="https://www.booking.com/Share-Fv2xxCi" target="_blank" rel="noopener" aria-label="Open B&B Patatina on Booking.com">
             <span class="acc-img-fb">🛶</span>
             <img src="images/acc_4.webp" alt="B&B Patatina" loading="lazy"
                  onerror="this.style.display='none'">
-          </div>
+          </a>
           <div class="acc-info">
             <span class="acc-name">B&amp;B Patatina</span>
-            <span class="acc-hint">click to view &amp; select</span>
           </div>
-          <div class="acc-tick">✓</div>
+          <button type="button" class="acc-heart" onclick="accLike(this)" aria-label="Pick B&B Patatina">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 20.4s-7.2-4.4-9.6-9C.7 8.1 3 4.3 6.8 4.3c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.4 7.1-2.4 4.6-9.6 9-9.6 9z"/>
+            </svg>
+          </button>
         </div>
 
-        <div class="acc-card" onclick="accSelect(this)"
-             data-url="https://www.booking.com/Share-l1Z878" data-name="Palazzo Suite Ducalle">
+        <div class="acc-card" data-url="https://www.booking.com/Share-TrrVrrL" data-name="Palazzo Suite Ducalle">
           <input type="radio" name="acc-venice" id="acc-v2" value="Palazzo Suite Ducalle">
-          <div class="acc-img">
+          <a class="acc-img" href="https://www.booking.com/Share-TrrVrrL" target="_blank" rel="noopener" aria-label="Open Palazzo Suite Ducalle on Booking.com">
             <span class="acc-img-fb">🛶</span>
             <img src="images/acc_5.webp" alt="Palazzo Suite Ducalle" loading="lazy"
                  onerror="this.style.display='none'">
-          </div>
+          </a>
           <div class="acc-info">
             <span class="acc-name">Palazzo Suite Ducalle</span>
-            <span class="acc-hint">click to view &amp; select</span>
           </div>
-          <div class="acc-tick">✓</div>
+          <button type="button" class="acc-heart" onclick="accLike(this)" aria-label="Pick Palazzo Suite Ducalle">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 20.4s-7.2-4.4-9.6-9C.7 8.1 3 4.3 6.8 4.3c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.4 7.1-2.4 4.6-9.6 9-9.6 9z"/>
+            </svg>
+          </button>
         </div>
 
-        <div class="acc-card" onclick="accSelect(this)"
-             data-url="https://www.booking.com/Share-Y5vllSL" data-name="Abbazia De Luxe">
+        <div class="acc-card" data-url="https://www.booking.com/Share-ioypXyi" data-name="Abbazia De Luxe">
           <input type="radio" name="acc-venice" id="acc-v3" value="Abbazia De Luxe">
-          <div class="acc-img">
+          <a class="acc-img" href="https://www.booking.com/Share-ioypXyi" target="_blank" rel="noopener" aria-label="Open Abbazia De Luxe on Booking.com">
             <span class="acc-img-fb">🛶</span>
             <img src="images/acc_6.webp" alt="Abbazia De Luxe" loading="lazy"
                  onerror="this.style.display='none'">
-          </div>
+          </a>
           <div class="acc-info">
             <span class="acc-name">Abbazia De Luxe</span>
-            <span class="acc-hint">click to view &amp; select</span>
           </div>
-          <div class="acc-tick">✓</div>
+          <button type="button" class="acc-heart" onclick="accLike(this)" aria-label="Pick Abbazia De Luxe">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 20.4s-7.2-4.4-9.6-9C.7 8.1 3 4.3 6.8 4.3c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.4 7.1-2.4 4.6-9.6 9-9.6 9z"/>
+            </svg>
+          </button>
         </div>
 
       </div>
@@ -1771,28 +1791,23 @@
   renderCalendar();
 
   /* ── Accommodation Picker ── */
-  function accSelect(card) {
+  function accLike(btn) {
+    const card  = btn.closest('.acc-card');
+    if (!card) return;
     const radio = card.querySelector('input[type="radio"]');
     if (!radio) return;
 
-    // Check this radio, uncheck siblings visually
     radio.checked = true;
 
-    // Open Booking.com in new tab
-    const url = card.dataset.url;
-    if (url) window.open(url, '_blank', 'noopener,noreferrer');
-
-    // Update pick slots
-    const name     = card.dataset.name;
+    const name     = card.dataset.name || radio.value;
     const isVenice = radio.name === 'acc-venice';
     const slotId   = isVenice ? 'acc-pick-v' : 'acc-pick-d';
     const nameId   = isVenice ? 'acc-pick-v-name' : 'acc-pick-d-name';
     const slot     = document.getElementById(slotId);
     const nameEl   = document.getElementById(nameId);
     if (slot)   slot.classList.add('has-pick');
-    if (nameEl) nameEl.textContent = name;
+    if (nameEl) nameEl.innerHTML = name;
 
-    // Show send button only when both groups have a pick
     const d = document.querySelector('#accommodation input[name="acc-dolomiti"]:checked');
     const v = document.querySelector('#accommodation input[name="acc-venice"]:checked');
     const wrap = document.getElementById('acc-send-wrap');
